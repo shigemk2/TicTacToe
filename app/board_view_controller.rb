@@ -1,5 +1,5 @@
 class BoardViewController < UIViewController
-  SQUARE_SIZE = 80
+  SQUARE_SIZE = 40
   COLORS = [UIColor.greenColor, UIColor.redColor, UIColor.whiteColor]
 
   def viewDidLoad
@@ -12,16 +12,16 @@ class BoardViewController < UIViewController
     view.backgroundColor = UIColor.blackColor
 
     # view for the board
-    @board_view = UIView.alloc.initWithFrame([[0, 0], [SQUARE_SIZE * 3, SQUARE_SIZE * 3]])
+    @board_view = UIView.alloc.initWithFrame([[0, 0], [SQUARE_SIZE * 5, SQUARE_SIZE * 5]])
     @board_view.center = view.center
 
     # views for the square
     @square_views = []
-    for i in 0..2
-      for j in 0..2
+    for i in 0..4
+      for j in 0..4
         square_view = UIView.alloc.initWithFrame([[j * (SQUARE_SIZE + 2), i * (SQUARE_SIZE + 2)], [SQUARE_SIZE - 4, SQUARE_SIZE - 4]])
         square_view.layer.cornerRadius = 5.0
-        @square_views[3*i + j] = square_view
+        @square_views[5*i + j] = square_view
         @board_view.addSubview(square_view)
       end
     end
@@ -52,7 +52,7 @@ class BoardViewController < UIViewController
 
   def touchesEnded(touches, withEvent:event)
     # check if we're touching a square
-    for i in 0..8
+    for i in 0..24
       if event.touchesForView(@square_views[i])
         if not @board.move(i, @current_player) then
           show_info("Illegal move!")
@@ -80,7 +80,7 @@ class BoardViewController < UIViewController
 
   # update the square views
   def board_changed
-    for i in 0..8
+    for i in 0..24
       @square_views[i].backgroundColor = COLORS[@board.grid[i]]
     end
   end
