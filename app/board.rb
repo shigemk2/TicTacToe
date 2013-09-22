@@ -36,16 +36,16 @@ class Board
   # game is not over
   def game_over?
     for i in 0..2
-      if @grid[3*i] != -1 && @grid[3*i] == @grid[3*i + 1] && @grid[3*i + 1] == @grid[3*i + 2]
+      if self.horizonal?(i)
         return @grid[3*i]
-      elsif @grid[i] != -1 && @grid[i] == @grid[i + 3] && @grid[i + 3] == @grid[i + 6]
+      elsif self.vertical?(i)
         return @grid[i]
       end
     end
 
-    if @grid[0] != -1 && @grid[0] == @grid[4] && @grid[4] == @grid[8]
+    if self.diagonal_right?(i)
       return @grid[0]
-    elsif @grid[2] != -1 && @grid[2] == @grid[4] && @grid[4] == @grid[6]
+    elsif self.diagonal_left?(i)
       return @grid[2]
     end
 
@@ -56,4 +56,19 @@ class Board
     false
   end
 
+  def horizonal?(i)
+    return @grid[3*i] != -1 && @grid[3*i] == @grid[3*i + 1] && @grid[3*i + 1] == @grid[3*i + 2]
+  end
+
+  def vertical?(i)
+    return @grid[i] != -1 && @grid[i] == @grid[i + 3] && @grid[i + 3] == @grid[i + 6]
+  end
+
+  def diagonal_right?(i)
+    return @grid[0] != -1 && @grid[0] == @grid[4] && @grid[4] == @grid[8]
+  end
+
+  def diagonal_left?(i)
+    return @grid[2] != -1 && @grid[2] == @grid[4] && @grid[4] == @grid[6]
+  end
 end
