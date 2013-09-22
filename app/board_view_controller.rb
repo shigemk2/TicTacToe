@@ -34,6 +34,8 @@ class BoardViewController < UIViewController
 
     view.addSubview(@label)
     view.addSubview(@board_view)
+
+    return @square_views, @board_view
   end
 
   def show_info(text)
